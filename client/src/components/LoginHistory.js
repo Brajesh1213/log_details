@@ -8,12 +8,12 @@ const UserDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/userdetail/${id}`);
+        const response = await fetch(`https://log-server-2.onrender.com/userdetail/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
         const userData = await response.json();
-        setData(userData); 
+        setData(Array.isArray(userData) ? userData : []); // Ensure userData is an array
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
@@ -26,7 +26,6 @@ const UserDetails = () => {
     <div className="container-fluid" style={{ background: "#76ABAE", color: "white" }}>
       <div className="row justify-content-center">
         <div className="col-md-10">
-         
           <h2 className="text-center"> <div><a href='/'>Return</a></div></h2>
           <div className="table-responsive">
             <table className="table table-striped">
@@ -36,18 +35,15 @@ const UserDetails = () => {
                   <th>Country</th>
                   <th>Login Time</th>
                   <th>Browser</th>
-                 
                 </tr>
               </thead>
               <tbody>
-               
                 {data.map((user) => (
                   <tr key={user._id}>
                     <td>{user.ipAddress}</td>
                     <td>{user.country}</td>
                     <td>{user.loginTime}</td>
                     <td>{user.userAgent}</td>
-                   
                   </tr>
                 ))}
               </tbody>

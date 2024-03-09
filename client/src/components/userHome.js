@@ -4,29 +4,29 @@ import { useNavigate } from "react-router-dom";
 export default function UserHome({ userData }) {
   const navigate = useNavigate();
   const userId = window.localStorage.getItem("token");
-  const [detail, setDetail] = useState(null); 
+  const [detail, setDetail] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/user/${userId}`);
+        const response = await fetch(`https://log-server-2.onrender.com/user/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
         const userData = await response.json();
-        setDetail(userData); 
+        setDetail(userData.data); // Corrected access to user data
       } catch (error) {
         console.error("Error fetching user data:", error.message);
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, [userId]);
-console.log(detail)
+
+  console.log(detail);
+
   const logOut = () => {
-   
     window.localStorage.clear();
-    
     window.location.href = "./sign-in";
   };
 
@@ -40,8 +40,8 @@ console.log(detail)
         <div>
           {detail && (
             <>
-              <p>Name: {detail.data.fname}  {detail.data.lname}</p>
-              <p>Email: {detail.data.email}</p>
+              <p>Name: {detail.fname} {detail.lname}</p> {/* Corrected access to user details */}
+              <p>Email: {detail.email}</p> {/* Corrected access to user details */}
             </>
           )}
           <br />

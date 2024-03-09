@@ -10,7 +10,7 @@ export default function SignUp() {
     e.preventDefault();
 
     console.log(fname, lname, email, password);
-    fetch("http://localhost:5000/register", {
+    fetch("https://log-server-2.onrender.com/register", { // Corrected URL
       method: "POST",
       crossDomain: true,
       headers: {

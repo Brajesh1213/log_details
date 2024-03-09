@@ -3,13 +3,20 @@ import React, { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch("http://localhost:5000/login-user", {
+    // Ensure both email and password are filled
+    if (!email || !password) {
+      alert("Please fill in both email and password fields.");
+      return;
+    }
+
+    fetch("https://log-server-2.onrender.com/login-user", {
       method: "POST",
-      crossDomain: true,
+      mode: "cors", // Fixing fetch request property
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -49,6 +56,7 @@ export default function Login() {
               type="email"
               className="form-control"
               placeholder="Enter email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -59,6 +67,7 @@ export default function Login() {
               type="password"
               className="form-control"
               placeholder="Enter password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -69,6 +78,8 @@ export default function Login() {
                 type="checkbox"
                 className="custom-control-input"
                 id="customCheck1"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
               />
               <label className="custom-control-label" htmlFor="customCheck1">
                 Remember me

@@ -37,6 +37,9 @@ const User = mongoose.model("UserInfo");
 const UserLogin = mongoose.model("UserLogin");
 
 
+app.get("/",(req,res)=>{
+  res.send("hello");
+})
 app.use(async (req, res, next) => {
   try {
     const agent = UserAgent.parse(req.headers["user-agent"]);

@@ -5,7 +5,7 @@ export default function UserDetails() {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/userData", {
+    fetch("https://log-server-2.onrender.com/userData", { // Corrected URL
       method: "POST",
       crossDomain: true,
       headers: {
